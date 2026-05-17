@@ -19,6 +19,7 @@ def run_fetcher():
     database.init_db()
     cnt_loading = 0
     total_new = 0
+    total_updated = 0
     for uid_obl in settings.UIDS_OBL:
         print(
             f"🔄 Загрузка данных области UID {uid_obl}... [{cnt_loading + 1}/{len(settings.UIDS_OBL)}]", end=" ", flush=True)
@@ -28,10 +29,12 @@ def run_fetcher():
             response = requests.get(url, timeout=30)
             if response.status_code == 200:
                 alerts_data = response.json().get('alerts', [])
-                new_added = database.save_alerts_to_db(alerts_data)
+                new_added, updated = database.save_alerts_to_db(alerts_data)
                 total_new += new_added
+                total_updated += updated
                 cnt_loading += 1
-                print(f"OK. Новых записей: {new_added}")
+                print(
+                    f"OK. Новых записей: {new_added}, Закрыто активных: {updated}")
             else:
                 print(f"Ошибка API {response.status_code}")
         except Exception as e:
@@ -42,4 +45,4 @@ def run_fetcher():
             time.sleep(45)
 
     print(
-        f"✅ Синхронизация завершена. Всего новых записей в базе: {total_new}")
+        f"✅ Синхронизация завершена. Всего новых записей в базе: {total_new}, Обновлено: {total_updated}")

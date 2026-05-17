@@ -39,5 +39,5 @@ ALERT_TYPE = "air_raid"
 
 # --- ПЕРИОД ДЛЯ ОТЧЕТА EXCEL ---
 # Здесь вы указываете даты, за которые хотите построить таблицу из накопленных данных
-REPORT_START_DATE = date(2026, 4, 1)
-REPORT_END_DATE = date(2026, 4, 30)
+REPORT_START_DATE = date(2026, 5, 1)
+REPORT_END_DATE = date(2026, 5, 31)
