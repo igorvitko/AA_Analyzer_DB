@@ -35,18 +35,18 @@ def calculate_overlap_minutes(start_dt, end_dt, day_date):
     return total_mins
 
 
-def run_analysis():
+def run_analysis(start_date, end_date):
     """Формирует отчет на основе данных в базе."""
     print(
-        f"📊 Формируем отчет за период: {settings.REPORT_START_DATE} — {settings.REPORT_END_DATE}")
+        f"📊 Формуємо звіт за період: {start_date} — {end_date}")
 
     ensure_report_dir()
 
     df = database.get_alerts_for_report(
-        settings.REPORT_START_DATE, settings.REPORT_END_DATE)
+        start_date, end_date)
 
     if df.empty:
-        print("❌ В базе нет данных за этот период или по этим регионам.")
+        print("❌ В БД немає даних за цей період або по цих регіонах.")
         return
 
     processed_data = []
@@ -62,7 +62,7 @@ def run_analysis():
         current_day = start_dt.date()
         while current_day <= end_dt.date():
             # Учитываем только те дни, которые входят в запрашиваемый период отчета
-            if settings.REPORT_START_DATE <= current_day <= settings.REPORT_END_DATE:
+            if start_date <= current_day <= end_date:
                 minutes = calculate_overlap_minutes(
                     start_dt, end_dt, current_day)
                 if minutes > 0:
@@ -75,7 +75,7 @@ def run_analysis():
             current_day += timedelta(days=1)
 
     if not processed_data:
-        print("🛑 За выбранный период тревог в рабочее время не найдено.")
+        print("🛑 За вказаний період тревог в рабочий час не знайдено.")
         return
 
     # Создание финальной таблицы
