@@ -27,3 +27,14 @@ def valid_date(date_string: str) -> date:
         raise argparse.ArgumentTypeError(
             f"Невірний формат дати: {date_string}. Потрібно ДД.ММ.РРРР."
         )
+
+
+def str_to_bool(value):
+    if isinstance(value, bool):
+        return value
+    if value.lower() in ('yes', 'true', 't', 'y', '1'):
+        return True
+    elif value.lower() in ('no', 'false', 'f', 'n', '0'):
+        return False
+    else:
+        raise argparse.ArgumentTypeError('Очікується значення True або False.')

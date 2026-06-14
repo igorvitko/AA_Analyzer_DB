@@ -2,8 +2,11 @@ import argparse
 
 from data_fetcher import run_fetcher
 from alert_analyzer import run_analysis
-from utils import get_current_month_bounds, valid_date
-
+from utils import (
+    get_current_month_bounds, 
+    valid_date,
+    str_to_bool
+    )
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
@@ -13,8 +16,8 @@ if __name__ == "__main__":
                         help="Дата початку звіту")
     parser.add_argument("-e", "--end", type=valid_date,
                         help="Дата кінця звіту")
-    parser.add_argument("-r", "--run-db", type=lambda x: (str(x).lower() == 'true'),
-                        default=True, help="Запускати скрипт загрузки БД? (True/False)")
+    parser.add_argument("-r", "--run-db", type=str_to_bool, default=True, 
+                        help="Запускати скрипт загрузки БД? (True/False)")
 
     args = parser.parse_args()
 
