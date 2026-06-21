@@ -1,36 +1,12 @@
-import argparse
 
 from data_fetcher import run_fetcher
 from alert_analyzer import run_analysis
-from utils import (
-    get_current_month_bounds,
-    valid_date,
-    str_to_bool
-)
+from utils import parse_arguments
 
 
 def main():
-    parser = argparse.ArgumentParser(
-        description="Щомісячний звіт часу повітрянних тревог.")
 
-    parser.add_argument("-s", "--start", type=valid_date,
-                        help="Дата початку звіту")
-    parser.add_argument("-e", "--end", type=valid_date,
-                        help="Дата кінця звіту")
-    parser.add_argument("-r", "--run-db", type=str_to_bool, default=True,
-                        help="Запускати скрипт загрузки БД? (True/False)")
-
-    args = parser.parse_args()
-
-    # Отримуємо дефолтні значення для поточного місяця
-    default_start, default_end = get_current_month_bounds()
-
-    start_date = args.start or default_start
-    end_date = args.end or default_end
-
-    if start_date > end_date:
-        print("Помилка: Дата початку не може бути більшою за дату кінця!")
-        exit(1)
+    start_date, end_date, run_db = parse_arguments()
 
     print("-" * 40)
     print("   СИСТЕМА НАКОПИЧЕННЯ ТА АНАЛИЗУ ЧАСУ ТРЕВОГ")
@@ -38,7 +14,7 @@ def main():
 
     # 1. На початку скачуємо нові дані з API и дописуємо їх в базу
     # (за замовченням оновлення даних відбвається, але є можливість його відключити, якщо потірбно тільки сформувати звіт)
-    if args.run_db:
+    if run_db:
         print("Завантаження даних про повітряні тривоги в БД...")
         run_fetcher()
     else:
