@@ -9,7 +9,7 @@ def ensure_report_dir():
     """Создает папку для отчета, если она отсутствует."""
     if not os.path.exists(settings.REPORTS_DIR):
         os.makedirs(settings.REPORTS_DIR)
-        print(f"📁 Создана папка: {settings.REPORTS_DIR}")
+        print(f"📁 Створена папка: {settings.REPORTS_DIR}")
 
 
 def calculate_overlap_minutes(start_dt, end_dt, day_date):
@@ -100,4 +100,4 @@ def run_analysis(start_date, end_date):
             for cell in row:
                 cell.number_format = '[h]:mm'
 
-    print(f"✨ Отчет успешно создан: {settings.OUTPUT_FILE}")
+    print(f"✨ Звіт успішно сформовано: {settings.OUTPUT_FILE}")

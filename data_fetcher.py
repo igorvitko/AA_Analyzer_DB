@@ -10,7 +10,7 @@ def ensure_data_dir():
     """Создает папку для данных, если она отсутствует."""
     if not os.path.exists(settings.DATA_DIR):
         os.makedirs(settings.DATA_DIR)
-        print(f"📁 Создана папка: {settings.DATA_DIR}")
+        print(f"📁 Стоврена папка: {settings.DATA_DIR}")
 
 
 def run_fetcher():
