@@ -65,7 +65,7 @@ def run_analysis(start_date, end_date):
             if start_date <= current_day <= end_date:
                 minutes = calculate_overlap_minutes(
                     start_dt, end_dt, current_day)
-                if minutes > 0:
+                if minutes >= 0:
                     processed_data.append({
                         'Reg_UID': int(row['location_uid']),
                         'Регіон': row['location_title'],

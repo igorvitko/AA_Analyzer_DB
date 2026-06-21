@@ -3,12 +3,13 @@ import argparse
 from data_fetcher import run_fetcher
 from alert_analyzer import run_analysis
 from utils import (
-    get_current_month_bounds, 
+    get_current_month_bounds,
     valid_date,
     str_to_bool
-    )
+)
 
-if __name__ == "__main__":
+
+def main():
     parser = argparse.ArgumentParser(
         description="Щомісячний звіт часу повітрянних тревог.")
 
@@ -16,7 +17,7 @@ if __name__ == "__main__":
                         help="Дата початку звіту")
     parser.add_argument("-e", "--end", type=valid_date,
                         help="Дата кінця звіту")
-    parser.add_argument("-r", "--run-db", type=str_to_bool, default=True, 
+    parser.add_argument("-r", "--run-db", type=str_to_bool, default=True,
                         help="Запускати скрипт загрузки БД? (True/False)")
 
     args = parser.parse_args()
@@ -50,3 +51,7 @@ if __name__ == "__main__":
 
     print("-" * 40)
     print("== ПРОЦЕС ЗАВЕРШЕНО ==")
+
+
+if __name__ == "__main__":
+    main()
